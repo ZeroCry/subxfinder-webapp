@@ -1,0 +1,7 @@
+.settings
+/target
+.classpath
+.project
+/bin
+/src/main/resources/configurations.properties
+.DS_Store
