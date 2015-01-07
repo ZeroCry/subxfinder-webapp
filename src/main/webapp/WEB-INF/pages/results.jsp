@@ -29,6 +29,14 @@
 			padding-top: 18px;
 			padding-left: 15px;
 		}
+		
+		#DataTables_Table_0_info{
+			padding-left: 15px;
+		}
+		
+		#DataTables_Table_0_paginate{
+			padding-right: 20px;
+		}
 	</style>
 	
 	<body style="padding: 75px;">

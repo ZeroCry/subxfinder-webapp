@@ -41,6 +41,8 @@ public class FinderController {
 			logger.error("There was an error trying to get the subtitles", e);
 		}
 		
+		model.put("title", title);
+		model.put("description", description);
 		model.put("subtitles", subtitles);
 		
 		return new ModelAndView("results");

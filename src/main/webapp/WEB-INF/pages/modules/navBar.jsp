@@ -9,10 +9,10 @@
 		</div>
 		<form action="${ctx}/finder/search" method="POST" class="navbar-form navbar-right" role="search">
 			<div class="form-group">
-				<input name="title" type="text" class="form-control" placeholder="Title">
+				<input name="title" type="text" class="form-control" placeholder="Title" value="${title}">
 			</div>
 			<div class="form-group">
-				<input name="description" type="text" class="form-control" placeholder="Description">
+				<input name="description" type="text" class="form-control" placeholder="Description" value="${description}">
 			</div>
 			<button type="submit" class="btn btn-default">Search</button>
 		</form>
