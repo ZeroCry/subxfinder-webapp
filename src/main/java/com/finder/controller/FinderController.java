@@ -36,7 +36,7 @@ public class FinderController {
 		List<SubtitleDTO> subtitles = new ArrayList<SubtitleDTO>();
 		
 		try{
-			subtitles = service.findSubtitles(title, description);
+			subtitles = service.findSubtitles(prepareTitle(title), prepareDescription(description));
 		}catch(Exception e){
 			logger.error("There was an error trying to get the subtitles", e);
 		}
@@ -44,5 +44,13 @@ public class FinderController {
 		model.put("subtitles", subtitles);
 		
 		return new ModelAndView("results");
+	}
+	
+	public String prepareTitle(String title){
+		return title.toLowerCase().replaceAll("\\s","+");
+	}
+	
+	public String[] prepareDescription(String description){
+		return description.toLowerCase().split("\\s");
 	}
 }

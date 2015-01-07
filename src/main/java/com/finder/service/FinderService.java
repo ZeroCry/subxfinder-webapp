@@ -6,5 +6,5 @@ import com.finder.dto.SubtitleDTO;
 
 public interface FinderService {
 	
-	List<SubtitleDTO> findSubtitles(String title, String description) throws Exception;
+	List<SubtitleDTO> findSubtitles(String title, String[] description) throws Exception;
 }

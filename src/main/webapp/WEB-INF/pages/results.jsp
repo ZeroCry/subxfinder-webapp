@@ -8,6 +8,29 @@
 		<jsp:include page="modules/header.jsp" />
 	</head>
 	
+	<script>
+		$(document).ready(function (){
+		    $('table').DataTable({
+		    	lengthMenu: [[200, -1], [200, "All"]],
+		    	paging: true,
+		    	ordering: false
+		    });
+		});
+	</script>
+	
+	<style>
+		.dataTables_filter{
+			padding-top: 15px;
+			padding-bottom: 10px;
+			padding-right: 20px;
+		}
+		
+		#DataTables_Table_0_length{
+			padding-top: 18px;
+			padding-left: 15px;
+		}
+	</style>
+	
 	<body style="padding: 75px;">
 		<jsp:include page="modules/navBar.jsp" />
 		
@@ -16,7 +39,7 @@
 				<div class="col-lg-12">
 					<div class="panel panel-default">
 						<div class="panel-heading">Results</div>
-						<table class="table table-bordered" style="font-size: 14px;">
+						<table class="table table-striped" style="font-size: 14px;">
 							<thead>
 								<tr>
 									<th>Title</th>
@@ -33,8 +56,10 @@
 										<td>
 											<c:out value="${subtitle.description}" escapeXml="true"/>
 										</td>
-										<td>
-											<c:out value="${subtitle.downloadLink}" escapeXml="true"/>
+										<td class="text-center">
+											<a href="<c:out value="${subtitle.downloadLink}" escapeXml="true"/>" target="new">
+												<img src="${ctx}/images/download.gif"></img>
+											</a>
 										</td>
 									</tr>
 								</c:forEach>

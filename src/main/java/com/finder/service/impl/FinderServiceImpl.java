@@ -21,11 +21,13 @@ public class FinderServiceImpl implements FinderService {
 	
 	private static String searchPage = "http://www.subdivx.com/index.php?accion=5&buscar=";
 	
-	private List<SubtitleDTO> subtitleResults = new ArrayList<SubtitleDTO>();
+	private List<SubtitleDTO> subtitleResults;
 	
 	private WebClient webClient;
 	
-	public List<SubtitleDTO> findSubtitles(String title, String description) throws Exception {
+	public List<SubtitleDTO> findSubtitles(String title, String[] description) throws Exception {
+		subtitleResults = new ArrayList<SubtitleDTO>();
+		
 		String searchURLWithParams = searchPage.concat(title);
 		
 		configureWebClient();
@@ -42,7 +44,7 @@ public class FinderServiceImpl implements FinderService {
     	    	
     	        searchResults = webClient.getPage(searchURLWithParams.concat("&pg=").concat(Integer.toString(i)));
     	    
-    	        parseSubtitles(searchResults);
+    	        parseSubtitles(searchResults, description);
     	    }
 	    }
 		
@@ -62,7 +64,7 @@ public class FinderServiceImpl implements FinderService {
         return totalPages;
     }
 	
-	public void parseSubtitles(HtmlPage searchResults){
+	public void parseSubtitles(HtmlPage searchResults, String[] description){
     	List<DomElement> subTitles = (List<DomElement>) searchResults.getByXPath("//div[@id='contenedor_izq']/div[@id='menu_detalle_buscador']");
     	List<DomElement> subDescriptions = (List<DomElement>) searchResults.getByXPath("//div[@id='contenedor_izq']/div[@id='buscador_detalle']");
     	
@@ -87,11 +89,23 @@ public class FinderServiceImpl implements FinderService {
 		    		subtitle.setDownloadLink(subDescriptionDataLinks.get(0).getAttribute("href"));		    		
 	    		}
 	    		
-	    		//Add to the subtitle list
-	    		subtitleResults.add(subtitle);
+	    		if( description.length == 0 || stringContainsItemFromList(subtitle.getDescription(), description) ){
+	    			//Add to the subtitle list
+		    		subtitleResults.add(subtitle);
+	    		}
 	    	}
     	}
     }
+	
+	public static boolean stringContainsItemFromList(String inputString, String[] items){
+	    for( int i =0; i < items.length; i++ ){
+	        if( inputString.contains(items[i]) ){
+	            return true;
+	        }
+	    }
+	    
+	    return false;
+	}
 	
 	public WebClient configureWebClient(){
         webClient = new WebClient(BrowserVersion.CHROME);
